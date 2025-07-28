@@ -1,0 +1,92 @@
+---
+title: Activitat 2
+output:
+  html_document: default
+  pdf_document: default
+---
+
+
+
+<!--Header-->
+<div><div class="row" style="color: #4D4D4D;font-size: 15px;padding-bottom: 20px"><div class="col-md-7"><img src="http://materials.cv.uoc.edu/cdocent/common/img/logo-uoc.png" alt="Logo UOC" class="img-responsive" style="margin:20px 0px 0px"></div><div class="col-md-5"><h1 style="margin:15px 0px 0px;font-size: 40px;">Lectura i escriptura de fitxers de dades</h1><div style="text-align:left;margin-top: 5px;"></div></div></div>
+
+
+<div class="row" style="color: #4D4D4D;font-size: 15px;padding-bottom: 20px background: #FCB517"><div style="text-align:right;">Autor: Xavier Duran Albareda <span style="margin-left: 30px;">Coordinació: Julià Minguillón</span></div></div>
+
+
+<div class="row" style="background: #FCB517;padding: 10px 20px;"><div style="text-align:right;">PID_00233252 </div></div>
+
+
+# Introducció
+
+L'exporació, manipulació, visualització i anàlisi de dades comença amb la càrrega de les dades des de diferents formats de fitxers. En aquesta activitat veurem com llegir fitxers de tipus `CSV` i `Excel`, carregar-los en un `DataFrame` i tornar-los a guardar en un altre fitxer.
+
+Farem servir les llibreries [`readr`](https://readr.tidyverse.org) i [`readxl`](https://readxl.tidyverse.org), que formen part de la col·lecció de paquets [`tidyverse`](https://tidyverse.org/).
+
+<br><div class="row"><div class="col-sm-3"><img src="images/readr.png" alt="readr"></div><div class="col-sm-3"><img src="images/readxl.png" alt="readxl"></div>
+</div>
+
+## Fitxers CSV
+
+L'acrònim `CSV` correspon a _Comma Separated Values_, és a dir, fitxers separats per comes. De fet, veurem que la funció de `pandas` que farem servir per llegir aquests tipus de fitxers també serveix per llegir fitxers separats per altres caracters, com els `TSV` o _Tab-Separated Values_, o els fitxers separats per punt i coma.
+
+El fitxer `CSV` que llegirem correspon al dataset de la competició [Titanic: Machine Learning from Disaster](https://www.kaggle.com/c/titanic) de [Kaggle](https://www.kaggle.com/).
+
+Per llegir un fitxer `CSV` farem servir la funció [`read_csv`](https://readr.tidyverse.org/reference/read_delim.html) de `readr`.
+
+```{r}
+library(readr)
+df <- read_csv("data/titanic.csv")
+df
+```
+
+Si volem llegir un fitxer que no està separat per comes, utilitzarem la funció [`read_delim`](https://readr.tidyverse.org/reference/read_delim.html) i especificarem el separador amb el paràmetre `delim`.
+
+```{r}
+df <- read_delim("data/titanic.tsv", delim='\t')
+df
+```
+
+Per tornar-lo a guardar en un altre fitxer, per exemple separat per punts i coma, farem servir la funció [`write_csv`](https://readr.tidyverse.org/reference/write_delim.html) de `readr`.
+
+```{r}
+write_csv(df, 'data/titanic_semicolon.csv')
+```
+
+##  Fitxers Excel
+
+Tot i ser un programari propietari, `Excel` és una de les eines més populars i utilitzades en el tractament de dades. [`readxl`](https://readxl.tidyverse.org/) és capaç de llegir els fitxers que genera aquest programari en les seves diferents versions. 
+
+El fitxer `Excel` que llegirem correspon al dataset de la competició [TMDB 5000 Movie Dataset](https://www.kaggle.com/tmdb/tmdb-movie-metadata) de [Kaggle](https://www.kaggle.com/). Aquest excel té tres `sheets` que corresponen a les películes dels anys `1900s`, `2000s` i `2010s`.
+
+Per llegir un fitxer `Excel` farem servir la funció [`read_excel`](https://readxl.tidyverse.org/reference/read_excel.html) de [`readxl`](https://readxl.tidyverse.org/).
+
+```{r}
+library(readxl)
+xls_file <- read_excel("data/movies.xls")
+xls_file
+```
+
+El nostre `Excel` té tres `sheets`. Si no li diem res, per defecte la funció [`read_excel`](https://readxl.tidyverse.org/reference/read_excel.html) ens carrega el primer. Si volem veure quins `sheets` té, podem fer servir la funció [`excel_sheets`](https://readxl.tidyverse.org/reference/excel_sheets.html).
+
+```{r}
+excel_sheets("data/movies.xls")
+```
+
+I a continuació podem especificar que n'obri un altre amb el paràmetre `sheet`.
+
+```{r}
+xls_file <- read_excel("data/movies.xls", sheet = "2010s")
+xls_file
+```
+
+Per tornar-lo a guardar en un altre fitxer `Excel` farem servir la funció  [`write.xlsx`](https://rdrr.io/cran/openxlsx/man/write.xlsx.html) de `openxlsx`.
+
+```{r}
+openxlsx::write.xlsx(xls_file, file = "data/movies_2010.xlsx")
+```
+
+<!--Footer-->
+ <div style="background: #333333;padding: 35px 0px;margin-top: 25px;"><div class="row"><div class="col-sm-12"><img src="http://materials.cv.uoc.edu/cdocent/common/img/logo-uoc-bottom.png" alt="Logo UOC" class="img-responsive" style="margin: 0 auto; display: block;"></div></div></div>
+<!--/Footer-->
+

@@ -1,0 +1,116 @@
+---
+title: Activitat 3
+output:
+  html_document: default
+  pdf_document: default
+---
+
+<!--Header-->
+<div><div class="row" style="color: #4D4D4D;font-size: 15px;padding-bottom: 20px"><div class="col-md-7"><img src="http://materials.cv.uoc.edu/cdocent/common/img/logo-uoc.png" alt="Logo UOC" class="img-responsive" style="margin:20px 0px 0px"></div><div class="col-md-5"><h1 style="margin:15px 0px 0px;font-size: 40px;">Manipulació de dades amb la llibreria dplyr</h1><div style="text-align:left;margin-top: 5px;"></div></div></div>
+
+
+<div class="row" style="color: #4D4D4D;font-size: 15px;padding-bottom: 20px background: #FCB517"><div style="text-align:right;">Autor: Xavier Duran Albareda <span style="margin-left: 30px;">Coordinació: Julià Minguillón</span></div></div>
+
+
+<div class="row" style="background: #FCB517;padding: 10px 20px;"><div style="text-align:right;">PID_00233252 </div></div>
+
+
+# Introducció
+
+En aquesta activitat farem servir la llibreria [`dplyr`](https://readr.tidyverse.org) per seleccionar i filtrar les dades del nostre _dataset_. [`dplyr`](https://readr.tidyverse.org) forma part de la col·lecció de paquets [`tidyverse`](https://tidyverse.org/), i es defineix com una gramàtica de manipulació de dades.
+
+Les principals funcions són les següents:
+
+- mutate() afegeix noves variables que són funció de variables existents al _dataset_
+- select() selecciona les variables pel seu nom
+- filter() selecciona casos o files del _dataset_ basat en els seus valors
+- summarise() sumaritza múltiples valors a un sol sumari
+- arrange() canvia l'ordenació de les variables
+
+<br><div class="row"><div class="col-sm-3"><img src="images/dplyr.png" alt="deplyr"></div></div>
+
+```{r}
+library(dplyr)
+```
+
+## Conjunt de dades
+
+El conjunt de dades o _dataset_ que farem servir en aquest exemple correspon al de la competició [Titanic: Machine Learning from Disaster](https://www.kaggle.com/c/titanic) de [Kaggle](https://www.kaggle.com/).
+
+```{r}
+library(readr)
+
+df = read_csv('data/titanic.csv')
+df
+```
+
+# Selecció de columnes
+
+En `R` fem servir les claus `[fila, columna]` per indicar la fila i la columna que volem seleccionar del `DataFrame`. Per exemple, per seleccionar la columna _Name_, farem servir `df[, Name]`, que indica que volem totes les files, però només la columna _Name_.
+
+```{r}
+df[, 'Name']
+```
+
+## Selecció de columnes amb dplyr
+
+La llibreria `dplyr` ens permet fer-ho d'una altra manera. Amb la funció `select` seleccionarem les columnes, i amb la funció `filter`, les files. El primer paràmetre de la funció serà el _DataFrame_ i  els següents, els noms de les columnes.
+
+```{r}
+select(df, Name)
+```
+
+Si volem seleccionar més d'una columna, passarem tots els seus noms com a paràmetres de la funció `select`.
+
+```{r}
+select(df, Name, Sex, Age)
+```
+
+# Filtrat de files
+
+La manera estàndard de filtrar un _dataset_ és mitjançant una condició en les files. En el següent exemple, filtrem tots els passatgers de menys de 18 anys. La part de la condició `!is.na(df$Age)` és per eliminar aquells que no en tenim l'edat.
+
+```{r}
+df[df$Age < 18 & !is.na(df$Age),]
+```
+
+## Filtrat de files amb dplyr
+
+Si fem servir la funció `filter` del package `dplyr`, queda més clar:
+
+```{r}
+filter(df, Age < 18 & !is.na(Age))
+```
+
+La condició pot ser tan complexa com volguem. Per exemple, a continuació seleccionarem aquells passatgers menors de 21 anys que hagin sobreviscut i fóssin en alguna cabina.
+
+```{r}
+filter(df, Survived == 1 & Age < 21 & !is.na(Cabin))
+```
+
+# Dividir les dades en dos conjunts de train i test
+
+Un cas molt habitual en problemes de _machine learning_ és haver de dividir el nostre _datatset_ en dos trossos o _splits_: el _dataset_ de _train_ i el _dataset_ de _test_. El _dataset_ de _train_ ens servirà per entrenar el model amb els mètodes de _machine learning_ que escollim. I el _dataset_ de _test_, per avaluar el model a partir de comparar les prediccions del model en aquest últim dataset.
+
+En el cas més habitual, en què les nostres dades no són sèries temporals, dividirem les dades en dos _splits_ aleatoris. A continuació veurem dues de les moltes maneres que tenim per fer-ho.
+
+## Funció sample
+
+La funció [`sample_frac`](https://dplyr.tidyverse.org/reference/sample.html) de `dplyr` retorna una mostra aleatòria del nostre _dataset_. La funció necessita un identificador únic per cada fila, i és el primer que farem. Després crearem el _dataset_ de _train_, especificant la proporció del _dataset_ original que volem, i finalment assignarem al _dataset_ de _test_ la resta de les files que no han estat seleccionades amb la funció [`anti_join`](https://dplyr.tidyverse.org/reference/join.html).
+
+```{r}
+df$id <- 1:nrow(df)
+train <- sample_frac(df, .75)
+train
+```
+
+```{r}
+test  <- anti_join(df, train, by = 'id')
+test
+```
+
+<!--Footer-->
+ <div style="background: #333333;padding: 35px 0px;margin-top: 25px;"><div class="row"><div class="col-sm-12"><img src="http://materials.cv.uoc.edu/cdocent/common/img/logo-uoc-bottom.png" alt="Logo UOC" class="img-responsive" style="margin: 0 auto; display: block;"></div></div></div>
+<!--/Footer-->
+
+

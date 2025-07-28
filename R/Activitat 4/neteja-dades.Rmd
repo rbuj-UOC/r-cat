@@ -1,0 +1,151 @@
+---
+title: Activitat 4
+output:
+  html_document: default
+  pdf_document: default
+---
+
+
+
+<!--Header-->
+<div><div class="row" style="color: #4D4D4D;font-size: 15px;padding-bottom: 20px"><div class="col-md-7"><img src="http://materials.cv.uoc.edu/cdocent/common/img/logo-uoc.png" alt="Logo UOC" class="img-responsive" style="margin:20px 0px 0px"></div><div class="col-md-5"><h1 style="margin:15px 0px 0px;font-size: 40px;">Neteja del conjunt de dades amb R</h1><div style="text-align:left;margin-top: 5px;"></div></div></div>
+
+
+<div class="row" style="color: #4D4D4D;font-size: 15px;padding-bottom: 20px background: #FCB517"><div style="text-align:right;">Autor: Xavier Duran Albareda <span style="margin-left: 30px;">Coordinació: Julià Minguillón</span></div></div>
+
+
+<div class="row" style="background: #FCB517;padding: 10px 20px;"><div style="text-align:right;">PID_00233252 </div></div>
+
+## Introducció
+
+En aquesta activitat aprendrem a netejar les dades, el pas necessari abans de fer qualsevol anàlisi o model. Això inclou tractar les dades buides o dades que falten, convertir tipus de dades i binaritzar variables.
+
+El conjunt de dades que farem servir en aquesta activitat correspon a les metadades de més de 5000 películes a IMDB, el [IMDB 5000 Movie Dataset](https://data.world/popculture/imdb-5000-movie-dataset).
+
+El primer que farem, com sempre, serà llegir les dades i donar-li un cop d'ull.
+
+```{r}
+library(readr)
+
+df <- read_csv('data/movie_metadata.csv')
+df
+```
+
+```{r}
+summary(df)
+```
+
+## Tractament de les dades no disponibles
+
+Un dels problemes més habituals que ens podem trobar en els nostres conjunts de dades és que no tinguem totes les observacions per tots els registres. És a dir, que algunes de les variables no estiguin disponibles. Aquest fet es pot donar per vàries raons: perquè aquestes dades no existeixen, perquè no es van introduir correctament o simplement per algun error de computació. El cas és que en la majoria d'anàlisis, les dades no disponibles poden causar errors. A continuació veurem tres estratègies diferents per solucionar aquest problema.
+
+- Eliminar les variables amb un percentatge alt de valors buits
+- Eliminar les files amb variables no disponibles
+- Imputar les dades o omplir-les amb un valor per defecte
+
+### Eliminar les variables amb un percentatge alt de valors buits
+
+La funció `colMeans` ens mostra quina proporció de dades no disponibles tenim per columna.
+
+```{r}
+sort(colMeans(is.na(df)), decreasing = TRUE)
+```
+
+Si establim com a criteri que no volem fer servir variables que tinguin més del 5% de valors `NaN`, eliminarem les variables `gross`, `content_rating`, `budget` i `aspect_ratio`. La funció `which` ens permet eliminar les columnes pel seu nom.
+
+```{r}
+columns_to_remove <- which(colMeans(is.na(df)) > 0.05)
+columns_to_remove
+```
+
+```{r}
+df_filtered <- df[, -columns_to_remove]
+colnames(df_filtered)
+```
+
+```{r}
+df_filtered
+```
+
+### Eliminar les files amb variables no disponibles
+
+En el nostre _dataset_ poden haver registres o files que no tinguin part de la informació. Una solució dràstica seria eliminar tots aquells registres que els falti alguna variable.
+
+Farem servir la funció `complete.cases` per aquest cas.
+
+```{r}
+df[complete.cases(df),]
+```
+
+### Omplir amb un valor per defecte
+
+Una de les estratègies més habituals és omplir els valors no coneguts amb un valor per defecte. Per exemple, podriem decidir asumir que si no tenim dades dels _likes_ del director al _Facebook_, és que no en té cap.
+
+```{r}
+df$director_facebook_likes[is.na(df$director_facebook_likes)] <- 0
+```
+
+O bé, podriem decidir calcular la mitjana dels _likes_ i imputar-li.
+
+```{r}
+df$director_facebook_likes[is.na(df$director_facebook_likes)] <- mean(df$director_facebook_likes)
+```
+
+Les tècniques d'imputació que hem vist són les més senzilles de totes, però poden arribar a ser tan complexes com volguem.
+
+## Transformació de les variables
+
+Un pas previ imprescindible a aplicar un model a les dades és la realització d'algunes transformacions a les variables per adaptar-les a les característiques de l'anàlisi que volem realitzar. A continuació presentem tres de les transformacions més habituals.
+
+### Conversió de tipus de dades
+
+Hi ha vegades que els tipus de dades que infereix `R` no són els que nosaltres volem. En aquest cas, haurem de convertir els tipus de dades de les variables. Per veure de quin tipus de dades és cada columna del nostre dataset, farem servir l'atribut `class`, que aplicarem a totes les columnes del _dataset_ amb la funció `sapply`.
+
+```{r}
+sapply(df, class)
+```
+
+Veiem que la variable `color` és de tipus `character`. Si volem convertir-la a categòrica, és a dir un factor, simplement farem servir la funció `as.factor()`.
+
+```{r}
+df$color <- as.factor(df$color)
+```
+
+Ara podem veure fàcilment la distribució de la variable amb la funció `table`.
+
+```{r}
+table(df$color)
+```
+
+### Binarització de variables
+
+La majoria d'eines i models per analitzar dades només accepten números com a valors de les variables. Això pot ser un problema si en les nostres variables tenim variables categòriques. Per convertir aquestes variables en numèriques, la manera més senzilla és fer el que es coneix per _one-hot encoding_, és a dir, transformar cada categoria de la variable en un vector binari que indiqui si la variable té aquest valor o no.
+
+En el nostre dataset, per exemple, transformarem la variable _color_, que té dos valors diferents.
+
+```{r}
+unique(df$color)
+```
+
+La funció `dummyVars` i la funció `predict` fan tota la feina del _one-hot encoding_.
+
+```{r}
+library(caret)
+dummies <- predict(dummyVars(~ color, data = df), newdata = df)
+dummies
+```
+
+Ara només cal que eliminem la variable `color` en el nostre _dataset_ i la substituim per les dues variables binàries que hem creat.
+
+```{r}
+library(dplyr)
+df <- select(df, -color) %>% cbind(dummies)
+df
+```
+
+I ja tenim les noves variables binaritzades `color.Black and White` i `color.Color`.
+
+<!--Footer-->
+ <div style="background: #333333;padding: 35px 0px;margin-top: 25px;"><div class="row"><div class="col-sm-12"><img src="http://materials.cv.uoc.edu/cdocent/common/img/logo-uoc-bottom.png" alt="Logo UOC" class="img-responsive" style="margin: 0 auto; display: block;"></div></div></div>
+<!--/Footer-->
+

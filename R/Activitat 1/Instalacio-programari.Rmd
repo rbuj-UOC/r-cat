@@ -1,0 +1,87 @@
+---
+title: Activitat 1
+output:
+  html_document: default
+  pdf_document: default
+---
+
+
+
+<!--Header-->
+<div><div class="row" style="color: #4D4D4D;font-size: 15px;padding-bottom: 20px"><div class="col-md-7"><img src="http://materials.cv.uoc.edu/cdocent/common/img/logo-uoc.png" alt="Logo UOC" class="img-responsive" style="margin:20px 0px 0px"></div><div class="col-md-5"><h1 style="margin:15px 0px 0px;font-size: 40px;">Instalació d' R i RStudio </h1><div style="text-align:left;margin-top: 5px;"></div></div></div>
+
+
+<div class="row" style="color: #4D4D4D;font-size: 15px;padding-bottom: 20px background: #FCB517"><div style="text-align:right;">Autor: Xavier Duran Albareda <span style="margin-left: 30px;">Coordinació: Julià Minguillón</span></div></div>
+
+
+<div class="row" style="background: #FCB517;padding: 10px 20px;"><div style="text-align:right;">PID_00233252 </div></div>
+
+# Introducció
+
+**R** és un llenguatge especialitzat en computació estadística i gràfics que en els últims anys ha anat
+guanyant importància per la seva utilitat en l'àmbit de la ciència de dades.
+
+
+**RStudio**  és un entorn de desenvolupament integrat (IDE) per R. Inclou una consola, un editor amb syntax highlighting que permet l'execució directa de codi, a més d'eines per visualitzar gràfiques, històric de comandes, debugging i gestió d'entorns de treball. 
+
+
+<br><div class="row"><div class="col-sm-3"><img src="images/r.png" alt="readr" align></div><div class="row"><div class="col-sm-3"><img src="images/Rstudio.png" alt="readr"></div></div>
+
+
+## Instalació d'R i Rstudio
+
+En primer lloc, anem a *instal.lar R*. Per fer-ho, anirem a la pàgina web d' [`R`](https://cran.r-project.org/), i ens descarregarem i instal.larem la versió d'acord amb el sistema operatiu que tinguem. 
+
+
+- [`Instal.lar R en Windows`](https://cran.r-project.org/bin/windows/base/)
+
+- [`Instal.lar R en Linux`](https://cran.r-project.org/bin/linux/). En aquest enllaç haureu d'escollir la distribució de linux que tingueu i seguir les instruccións d'instal.lació que s'indiquen. 
+
+- [`Instal.lar R en Mac OS X`](https://cran.r-project.org/)
+
+
+
+
+Un cop tinguem instal.lat R, procedirem a **instal.lar RStudio**. Per fer-ho, anirem a la pàgina oficial del software en la part de [`descàrregues`](https://rstudio.com/products/rstudio/download/) per descarregar i instal.lar la versió d'acord amb el sistema operatiu que tingueu. 
+
+
+Quan ja estigui instal.lat RStudio, obriu-lo i comproveu que la instal.lació s'ha realitzat correctament. 
+
+# Markdown 
+
+Com s'ha comentat breument a la introducció, amb R es pot executar codi desde consola i mitjançant la generació d'scripts amb l'editor de codi.  No obstant, R també ofereix la possibilitat de combinar codi amb contingut explicatiu gràcies a l'ús de la **llibreria rmarkdown** 
+
+[`R Markdown`](https://rmarkdown.rstudio.com/) proporciona un marc de creació de documents per a la ciència de dades. Es pot utilitzar un sol fitxer R Markdown per a:
+
+- Guardar i executar codi
+- Generar informes d'alta qualitat que es pot compartir
+
+Els documents d'R Markdown són completament reproduïbles i admeten dotzenes de formats d'eixida tant estàtics com dinàmics (html, pdf, word,..). Nosaltres, anem a treballar amb HTML com a format d'eixida. De fet, a partir de la segona activitat podreu veure que juntament al fitxer .Rmd relatiu a l'activitat s'adjunta el document HTML d'eixida perquè el pugueu consultar. 
+
+Per a utilitzar la llibreria, ha de ser prèviament instal.lada amb la següent instrucció:
+```
+
+install.packages("rmarkdown")
+
+```
+Un cop instal.lada la llibreria, es pot generar el report a partir del fitxer .Rmd executant el comando render:
+
+```
+library(rmarkdown)
+render("1-example.Rmd")
+
+```
+
+O, una vegada obert el fitxer, utilitzar el botó “Knit” de l'RStudio IDE per a renderitzar el fitxer i obtenir una previsualització del mateix. 
+
+Per conèixer més sobre Rmarkdown es recomana que reviseu la pàgina web amb la documentació oficial d' [`R Markdown`](https://rmarkdown.rstudio.com/), on s'explica més detalladament com funciona, la sintaxi que segueix i els seus principals comandos. A més de considerar el cheatsheet que s'adjunta amb aquesta primera activitat. 
+
+
+ 
+
+
+<!--Footer-->
+ <div style="background: #333333;padding: 35px 0px;margin-top: 25px;"><div class="row"><div class="col-sm-12"><img src="http://materials.cv.uoc.edu/cdocent/common/img/logo-uoc-bottom.png" alt="Logo UOC" class="img-responsive" style="margin: 0 auto; display: block;"></div></div></div>
+<!--/Footer-->
+
+
