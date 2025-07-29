@@ -1,6 +1,17 @@
 # UOC - Laboratori de Python i R
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gl/UOC%2Feimt%2Fdatascience%2FLAB%2Fr-cat/HEAD?urlpath=rstudio)
+
 Aquest repositori conté materials educatius per al Laboratori de Python i R de la UOC (Universitat Oberta de Catalunya). El laboratori està estructurat com una col·lecció de scripts i notebooks de R organitzats per activitats que ensenyen progressivament conceptes de ciència de dades amb R.
+
+## Accés Ràpid amb Binder
+
+Feu clic al botó _launch binder_ de dalt per executar els notebooks del laboratori directament al navegador amb totes les dependències ja configurades.
+
+L'entorn de [Binder](https://mybinder.org/) inclou:
+- R 4.3 amb totes les llibreries necessàries preinstal·lades
+- RStudio Server llest per usar
+- Tots els conjunts de dades i materials del laboratori
 
 ## Estructura del Repositori
 
@@ -30,7 +41,7 @@ R/
 
 2. **Descarregueu i instal·leu RStudio:**
    - Visiteu https://posit.co/download/rstudio-desktop/
-   - Descarregueu RStudio Desktop (gratuït)
+   - Descarregueu RStudio Desktop
 
 3. **Obriu el projecte:**
    - Inicieu RStudio
@@ -39,22 +50,33 @@ R/
 
 4. **Instal·leu les llibreries necessàries:**
    ```r
-   install.packages(c("tidyverse", "dplyr", "ggplot2", "readr", 
-                      "tidyr", "stringr", "lubridate", "caret"))
+   # Totes les dependències estan llistades a install.R
+   source("install.R")
    ```
 
 ## Llibreries Principals
 
 El curs utilitza les següents llibreries clau:
 
-- **tidyverse** - Col·lecció de paquets per a ciència de dades
+**Manipulació i anàlisi de dades:**
+- **readr**, **readxl** - Lectura de fitxers de dades (CSV, Excel)
 - **dplyr** - Manipulació de dades
-- **ggplot2** - Visualització de dades
-- **readr** - Lectura de fitxers de dades
-- **tidyr** - Neteja i reorganització de dades
-- **stringr** - Manipulació de cadenes de text
-- **lubridate** - Treballar amb dates i hores
-- **caret** - Algoritmes d'aprenentatge automàtic
+- **data.table**, **plyr** - Processament de dades addicional
+- **ggplot2**, **reshape2** - Visualització i transformació de dades
+
+**Aprenentatge Automàtic:**
+- **caret** - Framework principal d'aprenentatge automàtic
+- **randomForest**, **rpart** - Algoritmes d'arbres
+- **e1071**, **kernlab** - Support Vector Machines
+- **xgboost** - Gradient boosting
+- **C50**, **ipred** - Algoritmes addicionals de classificació
+- **caretEnsemble** - Mètodes d'ensemble
+- **pROC** - Avaluació de models
+- **nnet** - Xarxes neuronals
+- **mlbench** - Conjunts de dades de referència
+
+**Documentació:**
+- **rmarkdown** - Generació d'informes
 
 ## Començar
 
