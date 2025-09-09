@@ -1,6 +1,6 @@
 # UOC - Laboratori de Python i R
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gl/UOC%2Feimt%2Fdatascience%2FLAB%2Fpython-cat/HEAD?urlpath=%2Fdoc%2Ftree%2FPython%2FA1)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gl/UOC%2Feimt%2Fdatascience%2FLAB%2Fr-cat/HEAD?urlpath=rstudio)
 
 Aquest repositori conté materials educatius per al Laboratori de Python i R de la UOC (Universitat Oberta de Catalunya). El laboratori està estructurat com una col·lecció de scripts i notebooks de R organitzats per activitats que ensenyen progressivament conceptes de ciència de dades amb R.
 
