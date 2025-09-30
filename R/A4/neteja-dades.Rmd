@@ -20,7 +20,7 @@ output:
 
 En aquesta activitat aprendrem a netejar les dades, el pas necessari abans de fer qualsevol anàlisi o model. Això inclou tractar les dades buides o dades que falten, convertir tipus de dades i binaritzar variables.
 
-El conjunt de dades que farem servir en aquesta activitat correspon a les metadades de més de 5000 películes a IMDB, el [IMDB 5000 Movie Dataset](https://data.world/popculture/imdb-5000-movie-dataset).
+El conjunt de dades que farem servir en aquesta activitat correspon a les metadades de més de 5000 pel·lícules a IMDB, el [IMDB 5000 Movie Dataset](https://data.world/popculture/imdb-5000-movie-dataset).
 
 El primer que farem, com sempre, serà llegir les dades i donar-li un cop d'ull.
 
@@ -79,7 +79,7 @@ df[complete.cases(df),]
 
 ### Omplir amb un valor per defecte
 
-Una de les estratègies més habituals és omplir els valors no coneguts amb un valor per defecte. Per exemple, podriem decidir asumir que si no tenim dades dels _likes_ del director al _Facebook_, és que no en té cap.
+Una de les estratègies més habituals és omplir els valors no coneguts amb un valor per defecte. Per exemple, podríem decidir assumir que si no tenim dades dels _likes_ del director al _Facebook_, és que no en té cap.
 
 ```{r}
 df$director_facebook_likes[is.na(df$director_facebook_likes)] <- 0
@@ -91,7 +91,7 @@ O bé, podriem decidir calcular la mitjana dels _likes_ i imputar-li.
 df$director_facebook_likes[is.na(df$director_facebook_likes)] <- mean(df$director_facebook_likes)
 ```
 
-Les tècniques d'imputació que hem vist són les més senzilles de totes, però poden arribar a ser tan complexes com volguem.
+Les tècniques d'imputació que hem vist són les més senzilles de totes, però poden arribar a ser tan complexes com vulguem.
 
 ## Transformació de les variables
 

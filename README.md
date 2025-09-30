@@ -9,7 +9,7 @@ Aquest repositori conté materials educatius per al Laboratori de Python i R de 
 Feu clic al botó _launch binder_ de dalt per executar els notebooks del laboratori directament al navegador amb totes les dependències ja configurades.
 
 L'entorn de [Binder](https://mybinder.org/) inclou:
-- R 4.3 amb totes les llibreries necessàries preinstal·lades
+- R 4.3 amb totes les biblioteques necessàries preinstal·lades
 - RStudio Server llest per usar
 - Tots els conjunts de dades i materials del laboratori
 
@@ -48,15 +48,15 @@ R/
    - Utilitzeu `File > Open Project` i navegueu fins al directori del projecte
    - O simplement obriu RStudio i configureu el directori de treball
 
-4. **Instal·leu les llibreries necessàries:**
+4. **Instal·leu les biblioteques necessàries:**
    ```r
    # Totes les dependències estan llistades a install.R
    source("install.R")
    ```
 
-## Llibreries Principals
+## Biblioteques Principals
 
-El curs utilitza les següents llibreries clau:
+El curs utilitza les següents biblioteques clau:
 
 **Manipulació i anàlisi de dades:**
 - **readr**, **readxl** - Lectura de fitxers de dades (CSV, Excel)

@@ -19,9 +19,9 @@ output:
 
 # Introducció
 
-L'exporació, manipulació, visualització i anàlisi de dades comença amb la càrrega de les dades des de diferents formats de fitxers. En aquesta activitat veurem com llegir fitxers de tipus `CSV` i `Excel`, carregar-los en un `DataFrame` i tornar-los a guardar en un altre fitxer.
+l'exploració, manipulació, visualització i anàlisi de dades comença amb la càrrega de les dades des de diferents formats de fitxers. En aquesta activitat veurem com llegir fitxers de tipus `CSV` i `Excel`, carregar-los en un `DataFrame` i tornar-los a guardar en un altre fitxer.
 
-Farem servir les llibreries [`readr`](https://readr.tidyverse.org) i [`readxl`](https://readxl.tidyverse.org), que formen part de la col·lecció de paquets [`tidyverse`](https://tidyverse.org/).
+Farem servir les biblioteques [`readr`](https://readr.tidyverse.org) i [`readxl`](https://readxl.tidyverse.org), que formen part de la col·lecció de paquets [`tidyverse`](https://tidyverse.org/).
 
 <br><div class="row"><div class="col-sm-3"><img src="images/readr.png" alt="readr"></div><div class="col-sm-3"><img src="images/readxl.png" alt="readxl"></div>
 </div>
@@ -55,7 +55,7 @@ write_csv(df, 'data/titanic_semicolon.csv')
 
 ##  Fitxers Excel
 
-Tot i ser un programari propietari, `Excel` és una de les eines més populars i utilitzades en el tractament de dades. [`readxl`](https://readxl.tidyverse.org/) és capaç de llegir els fitxers que genera aquest programari en les seves diferents versions. 
+Tot i ser un programari propietari, `Excel` és una de les eines més populars i utilitzades en el tractament de dades. [`readxl`](https://readxl.tidyverse.org/) és capaç de llegir els fitxers que genera aquest programari en les seves diferents versions.
 
 El fitxer `Excel` que llegirem correspon al dataset de la competició [TMDB 5000 Movie Dataset](https://www.kaggle.com/tmdb/tmdb-movie-metadata) de [Kaggle](https://www.kaggle.com/). Aquest excel té tres `sheets` que corresponen a les películes dels anys `1900s`, `2000s` i `2010s`.
 

@@ -6,7 +6,7 @@ output:
 ---
 
 <!--Header-->
-<div><div class="row" style="color: #4D4D4D;font-size: 15px;padding-bottom: 20px"><div class="col-md-7"><img src="http://materials.cv.uoc.edu/cdocent/common/img/logo-uoc.png" alt="Logo UOC" class="img-responsive" style="margin:20px 0px 0px"></div><div class="col-md-5"><h1 style="margin:15px 0px 0px;font-size: 40px;">Manipulació de dades amb la llibreria dplyr</h1><div style="text-align:left;margin-top: 5px;"></div></div></div>
+<div><div class="row" style="color: #4D4D4D;font-size: 15px;padding-bottom: 20px"><div class="col-md-7"><img src="http://materials.cv.uoc.edu/cdocent/common/img/logo-uoc.png" alt="Logo UOC" class="img-responsive" style="margin:20px 0px 0px"></div><div class="col-md-5"><h1 style="margin:15px 0px 0px;font-size: 40px;">Manipulació de dades amb la biblioteca dplyr</h1><div style="text-align:left;margin-top: 5px;"></div></div></div>
 
 
 <div class="row" style="color: #4D4D4D;font-size: 15px;padding-bottom: 20px background: #FCB517"><div style="text-align:right;">Autor: Xavier Duran Albareda <span style="margin-left: 30px;">Coordinació: Julià Minguillón</span></div></div>
@@ -17,7 +17,7 @@ output:
 
 # Introducció
 
-En aquesta activitat farem servir la llibreria [`dplyr`](https://readr.tidyverse.org) per seleccionar i filtrar les dades del nostre _dataset_. [`dplyr`](https://readr.tidyverse.org) forma part de la col·lecció de paquets [`tidyverse`](https://tidyverse.org/), i es defineix com una gramàtica de manipulació de dades.
+En aquesta activitat farem servir la biblioteca [`dplyr`](https://readr.tidyverse.org) per seleccionar i filtrar les dades del nostre _dataset_. [`dplyr`](https://readr.tidyverse.org) forma part de la col·lecció de paquets [`tidyverse`](https://tidyverse.org/), i es defineix com una gramàtica de manipulació de dades.
 
 Les principals funcions són les següents:
 
@@ -54,7 +54,7 @@ df[, 'Name']
 
 ## Selecció de columnes amb dplyr
 
-La llibreria `dplyr` ens permet fer-ho d'una altra manera. Amb la funció `select` seleccionarem les columnes, i amb la funció `filter`, les files. El primer paràmetre de la funció serà el _DataFrame_ i  els següents, els noms de les columnes.
+La biblioteca `dplyr` ens permet fer-ho d'una altra manera. Amb la funció `select` seleccionarem les columnes, i amb la funció `filter`, les files. El primer paràmetre de la funció serà el _DataFrame_ i  els següents, els noms de les columnes.
 
 ```{r}
 select(df, Name)
@@ -82,7 +82,7 @@ Si fem servir la funció `filter` del package `dplyr`, queda més clar:
 filter(df, Age < 18 & !is.na(Age))
 ```
 
-La condició pot ser tan complexa com volguem. Per exemple, a continuació seleccionarem aquells passatgers menors de 21 anys que hagin sobreviscut i fóssin en alguna cabina.
+La condició pot ser tan complexa com vulguem. Per exemple, a continuació seleccionarem aquells passatgers menors de 21 anys que hagin sobreviscut i fóssim en alguna cabina.
 
 ```{r}
 filter(df, Survived == 1 & Age < 21 & !is.na(Cabin))
